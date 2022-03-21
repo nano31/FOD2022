@@ -1,0 +1,70 @@
+proceso agreagarEmpleado (var archivo)
+var 
+	empleado
+	seguir = boolean
+begin
+	elijo el archivo a modificar por su nombre
+	abro el archivo en modo lectura/escritura
+	seguir = true
+	mientras seguir
+		leo un empleado
+		mientras apellido <> fin
+			agrego el empleado al archivo
+			si quiero agregar otro empleado --> seguir = true
+	final del mientras seguir
+	cierro el archivo
+end;
+
+proceso modificarEdad (var archivo)
+var
+	empleado, nuevaEdad, seguir, nroBuscado
+begin
+	elijo el archivo a abrir por nombre
+	abrir el archivo en modo lectura/escritura
+	mientras seguir
+		leo un empleado del archivo
+		mientras not eof	
+			si (nroEmpleado = nroBuscado)
+				empleado.edad = nuevaEdad
+				seek(archivo, FilePos(archivo)-1)
+				modifico la edad en el archivo
+			sino
+				leo un nuevo empleado del archivo
+		fin del mientras
+		pregunto si se quiere modificar otro empleado
+		si
+			respuesta = si --> seguir = true
+		sino
+			seguir = false
+	fin del mientras seguir
+	cierro el archivo
+end;
+
+proceso pasarElArchivoATxt (var archivo)
+var
+	txt: Text --> traduce el archivo a texto
+	empleado
+begin
+	abro el archivo empleados en modo lectura/escritura
+	abro el archivo txt en modo escritura
+	mientras (not eof(archivo))
+		leo un empleado desde el archvivo
+		escribo el empleado cargado en el archivo txt
+	final del mientras
+	cierro ambos archivos(txt y empleados)
+end;
+
+proceso pasarEmpleadosConDni00 (var archivo)
+var
+	txt:Text
+	empleado
+begin
+	abro el archivo de empleado en modo lectura/escritura
+	abro el archivo text en modo lectura
+	mientras (not eof(archivo))
+		leo un empleado del archivo
+		si(empleado.dni = 00)
+			escribo el empleado en el archivo txt
+	final del mientras
+	cierro los archivos(txt)
+end;
