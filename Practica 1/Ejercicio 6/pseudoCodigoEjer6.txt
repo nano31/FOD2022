@@ -1,0 +1,40 @@
+proceso agregarCelulares ()
+var
+
+begin
+	abro el archivo modo lectura/escritura
+	seguir := true
+	mientras (seguir)
+		leerCelular()
+		escribo el celular en el archivo
+		agregar otro ?
+			seguir = 's' o 'S' --> true
+			seguir = 'n' o 'N' --> false
+end;
+
+proceso modificarStock()
+var
+	nombreDelCelularAModificar
+begin
+	ingresar el nombre del celular a modificar
+	mientras (not Eof(archivoCelulares))
+		si (celular.nombre = nombreDelCelularAModificar)
+			read(archivo,stock)
+			leer nuevo stock
+			seek(archivo, filepos(archivo)-1)
+			write(archivo,stock)
+	
+end;
+
+proceso exportarSinStockAtxt()
+var
+	txt: Text
+begin
+	abrir archivo txt en modo escritura
+	abrir archivos celulares en modo lectura/escritura
+	mientras (not eof(celulares))
+		read(archivoCelulares, celular)
+		si (celular.stockDisponible = 0 )
+			write(txt, celular)
+	final del mientras
+end;
