@@ -1,0 +1,51 @@
+proceso escribirEnElArchivo()
+begin
+	codigo, precio, marca
+	stock minimo, stock disponible, descripcion
+	nombre
+end;
+	
+proceso agregarAlArchivo (var archivoCelulares)
+var
+	
+begin
+	abrir txt en modo lectura/escritura
+	abrir archivo celulares en modo escritura
+	mientras (not eof(txt))
+		leo un celular del txt
+		escribo el celular en el archivo de celulares
+	final 
+	cierro ambos archivos
+end;
+
+proceso listarCelulares (var archivoCelulares)
+var
+	celular
+begin
+	imprimo en pantalla	
+end;
+
+proceso listarMenores(var archivoCelulares)
+var
+	
+begin
+	abro archivo en modo lectura/escritura
+	mientras (not eof(archivo))
+		leo el celular
+		si (sotckDisponible < stockMinimo)
+			listarCelulares(archivo) 
+	final del mientras
+end;
+
+proceso listarPorDescripcion (archivoCelulares)
+var
+
+begin
+	leer Descripcion a listar 
+	mientras (not eof(archivoCelulares))
+		leo el celular
+		si (celular.descripcion = descripcion)
+			imprimir en pantalla
+	final del mientras
+	cerrar archivo
+end;

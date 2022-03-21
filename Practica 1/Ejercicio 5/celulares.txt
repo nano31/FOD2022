@@ -1,0 +1,9 @@
+Codigo: 1 Precio: 200.00 Marca:  Xiaomi
+Stock Disponible: 30 Stock Minimo: 90 Descripcion:  celu
+Nombre: MI A9
+Codigo: 2 Precio: 600.00 Marca:  Samsung
+Stock Disponible: 10 Stock Minimo: 20 Descripcion:  cacho
+Nombre: J7 NEO
+Codigo: 3 Precio: 800.40 Marca:  Apple
+Stock Disponible: 50 Stock Minimo: 20 Descripcion:  cacho
+Nombre: Iphone 6
