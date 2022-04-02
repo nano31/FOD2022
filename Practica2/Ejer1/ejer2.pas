@@ -58,6 +58,21 @@ begin
     close(fd);
 end;
 
+procedure pasarATxt(var mae: maestro);
+var
+    txt: Text;
+    alum: rAlumno;
+begin
+    rewrite(txt);
+    while (not EOF(mae)) do begin
+        read(mae,alum);
+        if (mae.cantCursadasA = mae.cantFinalesA) then begin
+            write(txt,alum);
+        end; 
+    end;
+end;
+
+
 {programa principal}
 var
     mae: maestro;
