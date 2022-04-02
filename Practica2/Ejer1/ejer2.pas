@@ -26,9 +26,42 @@ begin
         alum.cod := valorAlto;
 end;
 
+procedure actualizarMaestro (var fm: maestro; var fd: detalle);
+var
+    alum: rAlumno;
+    mat: rDetalle;
+    codAct: integer;
+begin
+    reset(fm);
+    reset(fd);
+
+    leer(fd,mat);
+    while (mat.cod <> valorAlto) do begin
+        codAct := mat.cod;
+        cantFinales:=0;
+        cantCursadas:=0;
+        while (codAct = mat.cod) do begin
+            if ((mat.codicion = 'c') or (mat.condicion = 'C')) then 
+                cantCursadas := cantCursadas + 1;
+            if ((mat.condicio = 'f') or (mat.codicion = 'F')) then
+                cantFinales := cantFinales + 1;
+        end;
+        read(fm,alum);
+        while (alum.cod <> codAct) do begin
+            read(fm,alum);
+        end;
+        alum.cantCursadasA := cantCursadas;
+        alumn.cantFinalesA := cantFinales;
+        write(fm,alum);
+    end;
+    close(fm);
+    close(fd);
+end;
+
 {programa principal}
 var
-
+    mae: maestro;
+    det: detalle;
 begin
-
+    actualizarMaestro(fm,fd);
 end.
