@@ -18,6 +18,8 @@ type
 		cantVendida: integer;
 	end;
 	
+
+	
 	maestro = file of rProd;
 	detalle = file of rDetalle;
 	
@@ -37,19 +39,15 @@ var
 	i, indMin: integer;
 begin
 	indMin := 0;
-	min.cod:= valorAlto;
-	
 	for i:= 1 to df do begin
-		if (vDet[i].cod <> valorAlto) then begin			
-			if (vDet[i].cod < min.cod) then begin
-				min := vDet[i];
-				indMin := i;
-			end;
+		leer(det[i],registro);
+		acumulador[i] := registro;
+		if (acumulador[i].cod < min.cod) then begin
+			min := det[i];
+			indMin := i;
 		end;
 	end;
-	if (vDet[i].cod <> 0) then begin
-		leer(det[indMin], min);
-	end;
+	leer(det[indMin], min);
 	
 end;
 
@@ -57,6 +55,7 @@ procedure actualizarMaestro (var mae: maestro; min: rDetalle);
 var
 
 begin
+	minimo();
 	while (min.cod <> valorAlto) do begin
 		codActual:= min.cod;
 		cantVedida := 0;
@@ -64,10 +63,14 @@ begin
 			cantVendida := cantVendida + min.cantVendida;
 			minimo();
 		end; 
-		//read(detalle, min);
+
+		read(mae, rMae);
 		while (mae.cod <> codActual) do begin
-			read(mae, rMar);
+			read(mae, rMae);
 		end;
+		rMae.stockDisp := rMae.stockDisp - cantVendida;
+
+		seek(mae,filePos(mae)-1);
 		write(mae,min);
 	end;
 end;
