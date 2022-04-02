@@ -1,6 +1,6 @@
 program ejer2;
 const
-
+    valorAlto = 9999;
 type
     rAlumno = record
         cod: integer;
