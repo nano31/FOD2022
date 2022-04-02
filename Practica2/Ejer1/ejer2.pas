@@ -79,4 +79,5 @@ var
     det: detalle;
 begin
     actualizarMaestro(fm,fd);
+    pasarATxt(mae);
 end.
