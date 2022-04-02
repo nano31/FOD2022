@@ -34,21 +34,27 @@ begin
 		dato.cod := valorAlto;
 end;
 
-procedure minimo (var vDet: vDetalles; var det: arDet; var min: rDetalle);
+procedure minimo (var vDet: vDetalles; var acumulador: arDet; var min: rDetalle);
 var
 	i, indMin: integer;
+	registro: rDetalle;
 begin
 	indMin := 0;
+
 	for i:= 1 to df do begin
 		leer(det[i],registro);
-		acumulador[i] := registro;
+		acumulador[i] := registro;	  
+	end;
+
+	for i:= 1 to df do begin
 		if (acumulador[i].cod < min.cod) then begin
-			min := det[i];
+			min := acumulador[i];
 			indMin := i;
 		end;
 	end;
-	leer(det[indMin], min);
-	
+	if (indMin <> 0) then begin
+	  leer(vDet[indMin],acumulador[indMin]);
+	end;
 end;
 
 procedure actualizarMaestro (var mae: maestro; min: rDetalle);
