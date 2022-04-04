@@ -26,7 +26,7 @@ type
 procedure leer (var fc: archComisiones; var emp: rEmpleado);
 begin
     if (not EOF(arch)) then 
-        read(arch, emp);
+        read(arch, emp)
     else
         emp.cod = valorAlto;
 end;

@@ -21,7 +21,7 @@ type
 procedure leer(var det: detalle; var alum: rDetalle);
 begin
     if (not EOF(det)) then
-        read(det,alum);
+        read(det,alum)
     else
         alum.cod := valorAlto;
 end;
