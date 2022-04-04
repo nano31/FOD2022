@@ -55,4 +55,40 @@ var
 
 begin
   
+    for i:= 1 to df do begin
+        assign(vDet[i], 'detalle'+IntToStr(i));
+        reset(vDet[i]);
+
+        {guarda el primer registro de cada detalle en la i-esima pos del vector de ventas} 
+        leer(vDet[i], vReg[i]);
+    end;
+
+    minimo(vDet, vReg, min);
+    if (min.cod <> valorAlto) then begin`
+        read(mae, regMae);
+    end;
+    while (min.cod <> valorAlto) do begin
+        codAct:= min.cod;
+        cantVendido:= 0;
+
+        while (codAct = min.cod) do begin
+            cantVendido := cantVendido + min.cantVendida;
+            minimo(vDet,vReg,min);
+        end;
+
+        while (mae.cod <> codAct) do begin
+            read(mae,regMae);
+        end;
+        regMae.stockDisp := regMae.stockDisp - cantVendido;
+        seek(mae, filepos(mae)-1);
+        write(mae,regMae);
+
+        if (not EOF(mae)) then begin
+            read(mae, regMae);
+        end;
+    end;
+    close(mae);
+    for i:= 1 to df do begin
+        close(vDet[i]);d
+    end;
 end.
