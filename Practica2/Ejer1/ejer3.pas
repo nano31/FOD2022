@@ -112,5 +112,5 @@ begin
         close(vDet[i]);d
     end;
 
-    generarTxt(txt,mae);
+    generarTxt(mae);
 end.
