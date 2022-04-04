@@ -68,7 +68,11 @@ end;
 
 {programa principal}
 var
-
+    mae: maestro;
+    regMae: producto;
+    vDet: vecDet;
+    vReg: vecReg;
+    cantVendido,codAct: integer;
 begin
   
     for i:= 1 to df do begin
