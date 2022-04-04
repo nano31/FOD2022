@@ -83,6 +83,11 @@ begin
         seek(mae, filepos(mae)-1);
         Write(mae, regMae);
     end;
+
+    close(mae);
+    for i:= 1 to pc do begin
+        close(vDet[i]);
+    end;
 end;
 
 
