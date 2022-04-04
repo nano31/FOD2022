@@ -50,17 +50,46 @@ begin
     end;
 end;
 
-procedure crearMaestro();
+procedure crearMaestro(var mae: maestro; var vDet: vDetalles);
 var
-
+    regMae: rMaestro;
+    regDet,min: rMaquinas;
+    vReg: vRegistros;
+    codActual: integer;
+    cantTiempo: real;
 begin
+    Rewrite(mae); {creo el archivo maestro}
 
+    for i:= 1 to pc do begin
+        Reset(vDet[i]); {abro los archivos detalle}
+        leer(vDet[i],vReg[i]);
+    end;
+
+    minimo(vDet, vReg, min);
+    while (min.cod <> valorAlto) do begin
+        codActual:= min.cod;
+        cantTiempo:= 0;
+        while (codActual = min.cod) do begin
+            cantTiempo:= cantTiempo + min.tiempoSesion;
+            minimo(vDet, vReg, min);
+        end;
+
+        if (not EOF(mae)) then 
+            read(mae, regMae);
+        while (regMae.cod <> codActual) do begin
+            read(mae,regMae);
+        end;
+        regMae.tiempoTotalSesiones := regMae.tiempoTotalSesiones + min.tiempoSesion;
+        seek(mae, filepos(mae)-1);
+        Write(mae, regMae);
+    end;
 end;
 
 
 {programa principal}
 var
-
+    mae: maestro;
+    vDet: vDetalles;
 begin
-  
+    crearMaestro(mae,vDet);
 end.
