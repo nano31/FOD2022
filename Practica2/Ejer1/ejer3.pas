@@ -31,11 +31,23 @@ begin
         regDet.cod := valorAlto;
 end;
 
-procedure minimo();
+procedure minimo(var vDet: vecDet; vReg: vecReg; var min: sucursal);
 var
-
+    i, indiceMin: integer;
 begin
+    indiceMin:= 0;
+    min.cod:= valorAlto;
 
+    //recorro los registros detalle
+    for i:= 1 to df do begin
+      if (vReg[i].cod < min.cod) then begin
+        indiceMin:= i;
+        min:= vReg[i];
+      end;
+    end;
+
+    if (indiceMin <> 0) then
+        leer(vDet[indiceMin],vReg[indiceMin]); 
 end;
 
 {programa principal}
