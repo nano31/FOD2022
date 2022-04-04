@@ -84,7 +84,7 @@ begin
     end;
 
     minimo(vDet, vReg, min);
-    if (min.cod <> valorAlto) then begin`
+    if (min.cod <> valorAlto) then begin
         read(mae, regMae);
     end;
     while (min.cod <> valorAlto) do begin
