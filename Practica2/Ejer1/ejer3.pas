@@ -50,6 +50,22 @@ begin
         leer(vDet[indiceMin],vReg[indiceMin]); 
 end;
 
+procedure generarTxt(var mae: maestro);
+var
+    txt: Text;
+begin
+    reset(mae);
+    Rewrite(txt);
+    
+    while (not EOF(mae)) do begin
+        read(mae, regMae);
+        if (regMae.stockDisp < regMae.stockMin) then begin
+            write(txt,'Codigo: ', regMae.cod,' Descripcion: ', regMae.descripcion,
+            'Stock Disponible: ', regMae.stockDisp, ' Stock Minimo: ', regMae.stockMin);
+        end;
+    end;
+end;
+
 {programa principal}
 var
 
@@ -91,4 +107,6 @@ begin
     for i:= 1 to df do begin
         close(vDet[i]);d
     end;
+
+    generarTxt(txt,mae);
 end.
