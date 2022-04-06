@@ -47,9 +47,25 @@ begin
     end;
 end;
 
+procedure agregarATxt(var mae: maestro);
+var
+    txt: Text;
+begin
+    Reset(mae);
+    while (not EOF(mae)) do begin
+        read(mae, rMae);
+        if (rMae.stockAct < rMae.stockMin) then 
+            write(txt, rMae);
+    end;
+    close(mae);
+    close(txt);
+end;
+
 {programa principal}
 var
-
+    mar: maestro;
+    det: detalle;
 begin
-  
+    actualizarMaestro(mae, det);
+    agregarATxt(mae);
 end.
