@@ -58,9 +58,40 @@ end;
 
 procedure actualizarMaestro (var mae: maestro; var vDet: vecDetalles);
 var
-
+     i: integer;
+     min,aux: rDetalle;
+     vReg: vecRegistros;
 begin
+    for i:= 1 to df do begin
+        reset(vDet[i]);
+        leerDetalle(vDet[i], vReg[i]);     
+    end;
 
+    minimo(vDet,vReg,min);
+    while (min.codLocalidad <> valorAlto) do begin
+        aux.codLocalidad:= min.codLocalidad;
+        aux.codCepa:= min.codCepa;
+        while ((aux.codLocalidad = min.codLocalidad)and(aux.codCepa = aux.codCepa)) do begin
+            aux.cantActivos := aux.cantActivos + min.cantActivos;
+            aux.cantNuevos := aux.cantNuevos + min.cantNuevos;
+            aux.cantRecuperados := aux.cantRecuperados + min.cantRecuperados;
+            aux.cantFallecidos := aux.cantFallecidos + min.cantFallecidos;
+            minimo(vDet,vReg,min);
+        end;
+        read(mae, rMae);
+        
+        while ((not EOF(mae)) and ((rMae.codLocalidad <> aux.codLocalidad) or (rMae.codCepa <> aux.codCepa))) do 
+            read(mar, rMae);
+
+        rMae.codLocalidad:= aux.codLocalidad;
+        rMae.codCepa:= aux.codCepa;
+        rMae.cantActivos:= aux.cantActivos;
+        rMae.cantNuevos:= aux.cantNuevos;
+        rMae.cantRecuperados:= aux.cantRecuperados;
+        rMae.cantFallecidos:= aux.cantFallecidos;
+
+        seek(mae, filepos(mae)-1);
+    end;
 end;
 
 {programa principal}
