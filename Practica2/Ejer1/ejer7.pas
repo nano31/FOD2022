@@ -52,6 +52,8 @@ var
     txt: Text;
 begin
     Reset(mae);
+    Assign(txt, 'stock_minimo.txt');
+    Rewrite(txt);
     while (not EOF(mae)) do begin
         read(mae, rMae);
         if (rMae.stockAct < rMae.stockMin) then 
