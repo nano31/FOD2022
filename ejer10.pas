@@ -2,11 +2,14 @@ program ejer10;
 const
     valorAlto = 9999;
 type
+
+    montos = array [1..15] of real; {monto por categorias}
     rEmpleado = record
         departamento: integer;
         division: integer;
         nroEmpleado: integer;
-        categoria: real; {monto que cobra}
+        categoria: integer; 
+        monto: montos;
         cantHorasExtras: integer;
     end;
 
