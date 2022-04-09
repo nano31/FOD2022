@@ -9,14 +9,6 @@ type
         nombre: cad;
         apellido: cad;
     end;
-
-    rVentas = record
-        datosCliente: rCliente;
-        totalMensual: real;
-        totalAnual: real;
-    end;
-    detalle = file of rVentas;
-
     rMaestro = record
         datosCliente: rCliente;
         anio: 2020..2022;
@@ -24,6 +16,7 @@ type
         dia: 1..31;
         montoCompra: real;
     end;
+    maestro = file of rMaestro;
 
 procedure leer(var mae: rMaestro; var dato: rVentas);
 begin
@@ -33,13 +26,12 @@ begin
         dato.datosCliente.cod := valorAlto;
 end;
 
-procedure actualizarMaestro();
+procedure actualizarMaestro(var mae: maestro);
 var
     dato: rMaestro;
     mesAct, codAct, anioAct: integer;
-    totalMensual, totalAnual: real;
+    totalMensual, totalAnual,total: real;
 begin
-    reset(det);
     reset(mae);
 
     leer(mae,dato);
@@ -51,23 +43,24 @@ begin
         while (dato.anio = anioAct) do begin
             totalMensual:= 0;
             mesAct := dato.mes;
-            while ((dato.mes = mesAct) and (dato.anio = anioAct)) do begin
+            while ((dato.datosCliente.cod = codAct) and (dato.mes = mesAct) and (dato.anio = anioAct)) do begin
                 write('Mes: ', mesAct);
                 totalMensual:= totalMensual + dato.montoCompra;
                 leer(mae, dato);
             end;
-            Write('Total mes: ', totalMensual);
+            Write('Total mes: ', totalMensual:2:2);
             totalAnual := totalAnual + totalMensual;
         end;
-
-
-
+        writeln('Total anio: ', totalAnual:2:2);
+        total := total + totalAnual;
     end;
+    WriteLn('Total de la empresa: ', total);
+    close(mae);
 end;
 
 {programa principal}
 var
-
+    mae: maestro;
 begin
-
+    actualizarMaestro(mae);
 end.
