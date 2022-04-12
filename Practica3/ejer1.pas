@@ -50,17 +50,24 @@ end;
 
 procedure bajaLogicaDelArchivo (var arch: archAsistentes);
 var
-    sim: cad;
-    asist: rAsistente;
+    asist,sim: rAsistente;
 begin
-    sim = "****";
+    sim.nroAsist:= 0;
+    sim.apellido:= "***";
+    sim.nombre:= "***";
+    sim.email:= "***";
+    sim.telefono:= "***";
+    sim.dni:= "***";
     Reset(arch);
     while (not EOF(arch)) do begin
         read(arch, asist);
         if (asist.nroAsist < 1000) then begin
-            
+            asist := sim;
         end;
+        seek(arch, filePos(arch)-1);
+        write(arch, asist);
     end;
+    close(arch);
 end;
 
 {programa principal}
