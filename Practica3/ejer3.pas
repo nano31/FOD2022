@@ -150,15 +150,23 @@ begin
 
         leer(arch, novela);
         while ((novela.cod <> valorAlto) and (not encontro)) do begin
-            leer(arch, novela);
 
             if (novela.cod = cod) then begin
                 leerNovela(novela);
                 seek(arch, FilePos(arch)-1);
                 Write(arch, novela);
+                encontro := true;
             end;
+
+            leer(arch, novela);
         end;    
     end;
+    
+    if (encontro) then
+        WriteLn('El codigo fue encontrado y la novela se modifico con exito.')
+    else
+        WriteLn('El codigo buscado no existe dentro del archivo.');
+    close(arch);
 end;
 
 {programa principal}
