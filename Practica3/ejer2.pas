@@ -7,7 +7,7 @@ asistente inferior a 1000.
 Para ello se podrá utilizar algún carácter especial situándolo delante de algún campo
 String a su elección. Ejemplo: ‘@Saldaño’.}
 
-program ejer1;
+program ejer2;
 const
 
 type
@@ -53,11 +53,11 @@ var
     asist,sim: rAsistente;
 begin
     sim.nroAsist:= 0;
-    sim.apellido:= "***";
-    sim.nombre:= "***";
-    sim.email:= "***";
-    sim.telefono:= "***";
-    sim.dni:= "***";
+    sim.apellido:= '***';
+    sim.nombre:= '***';
+    sim.email:= '***';
+    sim.telefono:= '***';
+    sim.dni:= '***';
     Reset(arch);
     while (not EOF(arch)) do begin
         read(arch, asist);
@@ -72,7 +72,9 @@ end;
 
 {programa principal}
 var
+    fileAsist: archAsistentes;
 
 begin
-  
+    generarArchivo(fileAsist);
+    bajaLogicaDelArchivo(fileAsist);
 end.
