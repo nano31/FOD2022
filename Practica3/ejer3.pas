@@ -169,6 +169,85 @@ begin
     close(arch);
 end;
 
+procedure eliminarNovela(var arch: archNovelas);
+var
+    novela, cabecera: rNovela;
+    cod: integer;
+    encontro: boolean;
+begin
+    encontro:= false;
+    Reset(arch);
+
+    WriteLn('Ingrese el codigo de la novela que desea eliminar: '); readln(cod);
+    
+    if (cod > 0) then begin
+        //me salteo el registro cabecera
+        leer(arch, cabecera);
+        //leo el primer registro cargado del archivo
+        leer(arch, novela);
+        while ((novela.cod <> valorAlto) and (not encontro)) do begin
+            if (novela.cod = cod) then begin
+                seek(arch, filepos(arch)-1);
+                novela.cod := filePos(arch) * -1;
+
+                write(arch, novela);
+
+                seek(arch,0);
+                read(arch, cabecera);
+
+                seek(arch,0);
+                write(arch, novela);
+
+                seek(arch, novela.cod*-1);
+                write(arch, cabecera);
+                
+                encontro := true;
+            end;
+            leer(arch, novela);
+        end;
+    end;
+
+    if (encontro) then
+        writeln('La novela ha sido eliminada con exito')
+    else
+        Writeln('La novela no se ha encontrado dentro del archivo');
+    close(arch);
+end;
+
+procedure exportarATxt(var arch: archNovelas);
+var
+    txt: Text;
+    nomArchivo:cad;
+    dato: rNovela;
+begin
+    Assign(txt,'novelas.txt');
+    Rewrite(txt);
+    
+    WriteLn('Ingrese el nombre del archivo que desea exportar: '); ReadLn(nomArchivo);
+    Assign(arch, nomArchivo);
+    Reset(arch);
+
+    //proceso el registro cabecera
+    leer(arch, dato);
+    //debo procesar el registro cabecera, debido a que se pide que en el archivo txt aparezcan todas las novelas del 
+    //archivo original sin importar si estas fueron o no borradas
+    if (dato.cod < 0) then 
+        with dato do
+          write(txt, cod,' ',nombre,' ',genero,' ',duracion,' ',director,' ',precio,' ');
+    leer(arch, dato);
+    //se agregan al txt todas las novelas, no importa si fueron borradas o no
+    while (dato.cod <> valorAlto) do begin
+        if (dato.cod <> 0) then begin
+            with dato do
+              write(txt, cod,' ',nombre,' ',genero,' ',duracion,' ',director,' ',precio,' ');  
+        end;  
+        leer(arch, dato);
+    end;
+    WriteLn('El archivo txt se genero correctamente');
+    close(txt);
+    close(arch);
+end;
+
 {programa principal}
 var
     nomArchivo: cad;
