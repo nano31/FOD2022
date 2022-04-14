@@ -38,7 +38,7 @@ const
     valorAlto = 9999;
 type
     cad = string[20];
-    rNovela = record.
+    rNovela = record
         cod: integer;
         genero: cad;
         nombre: cad;
