@@ -67,9 +67,16 @@ begin
     close(fn);
 end;
 
+procedure leerCodigo(var codigo: integer);
+begin
+    writeln('Ingrese codigo de novela: ');
+    ReadLn(codigo);
+    if (codigo = 0) then 
+        Writeln('El codigo de novela ingresado no es valido');
+end;
+
 procedure leerNovela(var n: rNovela);
 begin
-    WriteLn('Cod: '); ReadLn(n.cod);
     WriteLn('Genero: '); ReadLn(n.genero);
     WriteLn('Nombre: '); ReadLn(n.nombre);
     WriteLn('Duracion: '); ReadLn(n.duracion);
@@ -86,10 +93,12 @@ begin
     //leo en el arch para saltear el 1er registro, es decir, me salteo la cabecera
     read(arch, dato);
 
+    leerCodigo(dato.cod);
     leerNovela(dato);
     //leo datos mientras el codigo ingresado sea valido, el cod nunca puede ser negativo
     while (dato.cod <> -1) do begin
         write(arch, dato);
+        leerCodigo(dato.cod);
         leerNovela(dato);
     end;
     close(arch);
