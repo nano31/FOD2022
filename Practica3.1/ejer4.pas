@@ -84,7 +84,17 @@ end;
 
 {programa principal}
 var
-
+    arch: archFlores;
+    nom: stringp[45];
+    cod: integer;
 begin
+    crearArchivo(arch);
+    listarArchivo(arch);
 
+    WriteLn('Ingrese los datos de la nueva flor');
+    WriteLn('Codigo: '); ReadLn(cod);
+    WriteLn('Nombre: '); ReadLn(nom);
+
+    agregarFlor(arch, nom, cod);
+    listarArchivo(arch);
 end.
