@@ -47,12 +47,12 @@ begin
     end;
 end;
 
-procedure compactar (var mae: maestro; pos: integer; var cont: integer);
+procedure compactar (var arch: nuevoArchivo; pos: integer; var cont: integer);
 var
     dato: rAves;
     posFinal: Integer;
 begin
-    posFinal := FileSize(mae)-1; //marca la pos final del archivo
+    posFinal := FileSize(mae); //marca la pos final del archivo
     seek(mae,(posFinal - cont)); //vamos la pos anterior del final
     read(mae, dato);//se lee el registro
     seek(mae, pos);//nos dirigimos a la pos donde se va a insertar
@@ -67,12 +67,18 @@ begin
     Rewrite(newFile);
     Reset(mae);
 
-    while (not EOF(mae)) do begin
+    contador:=0;
+
+    while (FilePos(mae) <> (FileSize(mae)-cont)) do begin
         read(mae, ave);
-        if (ave.cod > 0) then begin
-            write(newFile,ave);
+        if (ave.cod < 0) then begin
+            compactar(newFile,(FilePos(mae)), cont);
+            seek(mae, FilePos(mae)-1);
         end;
     end;
+    seek(mae, (FileSize(mae)-cont));
+    Truncate(mae);
+    close(mae);
 end;
 
 {programa principal}
