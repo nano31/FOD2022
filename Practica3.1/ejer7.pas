@@ -12,7 +12,31 @@ type
     end;
 
     maestro = file of rAves; //archivo original
-    nuevoArchivo = file of rAves; //archivo compactado
+
+
+procedure leerAve (var a: rAves);
+begin
+    WriteLn('Codigo: '); ReadLn(a.cod);
+    if (a.cod <> 0) then begin
+        writeln('Especie: '); ReadLn(a.nomEspecie);
+        WriteLn('Familia: '); ReadLn(a.familia);
+        WriteLn('Descripcion: '); ReadLn(a.descripcion);
+        WriteLn('Zona Geografica: '); ReadLn(a.zonaGeografica);
+    end;
+end;
+
+procedure cargarArchivo(var mae: maestro);
+var
+    ave: rAves;
+begin
+    Rewrite(mae);
+    leerAve(ave);
+    while (ave.cod <> 0) do begin
+        write(mae, ave);
+        leerAve(ave);
+    end;
+    close(mae);
+end;
 
 
 procedure marcarRegistros(var mae: maestro);
@@ -47,7 +71,7 @@ begin
     end;
 end;
 
-procedure compactar (var arch: nuevoArchivo; pos: integer; var cont: integer);
+procedure compactar (var mae:maestro; pos: integer; var cont: integer);
 var
     dato: rAves;
     posFinal: Integer;
@@ -60,11 +84,10 @@ begin
     cont := cont + 1;//sumamos 1 en el contador
 end;
 
-procedure compactarArchivo(var mae: maestro; var newFile: nuevoArchivo);
+procedure compactarArchivo(var mae: maestro);
 var
 
 begin
-    Rewrite(newFile);
     Reset(mae);
 
     contador:=0;
@@ -72,7 +95,7 @@ begin
     while (FilePos(mae) <> (FileSize(mae)-cont)) do begin
         read(mae, ave);
         if (ave.cod < 0) then begin
-            compactar(newFile,(FilePos(mae)), cont);
+            compactar(mae,(FilePos(mae)), cont);
             seek(mae, FilePos(mae)-1);
         end;
     end;
@@ -83,7 +106,8 @@ end;
 
 {programa principal}
 var
-
+    archMaestro: maestro;
 begin
-
+    cargarArchivo(archMaestro);
+    marcarRegistros(archMaestro);
 end.
