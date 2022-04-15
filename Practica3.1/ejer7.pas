@@ -47,6 +47,19 @@ begin
     end;
 end;
 
+procedure compactar (var mae: maestro; pos: integer; var cont: integer);
+var
+    dato: rAves;
+    posFinal: Integer;
+begin
+    posFinal := FileSize(mae)-1; //marca la pos final del archivo
+    seek(mae,(posFinal - cont)); //vamos la pos anterior del final
+    read(mae, dato);//se lee el registro
+    seek(mae, pos);//nos dirigimos a la pos donde se va a insertar
+    write(mae, dato);//insertamos el reg en la pos correspondiente
+    cont := cont + 1;//sumamos 1 en el contador
+end;
+
 procedure compactarArchivo(var mae: maestro; var newFile: nuevoArchivo);
 var
 
