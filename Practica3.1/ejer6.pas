@@ -60,11 +60,34 @@ begin
     close(det);
 end;
 
+procedure comprimirEnNuevoArchivo(var mae: maestro; var newFile: nuevoArchivo);
+var
+    dato: rPrenda;
+begin
+    Rewrite(newFile);
+    Reset(mae);
+    leerMaestro(mae, dato);
+    while(dato.cod <> valorAlto) do begin
+        if (dato.stock < 0) then
+            write(newFile, dato);
+        leerMaestro(mae, dato);
+    end;
+    close(mae);
+    close(newFile);
+end;
+
 
 
 {programa principal}
 var
-
+    mae: maestro;
+    det: detalle;
+    newFile: nuevoArchivo;
 begin
+    Assign(mae, 'archivoMaestro.dot');
+    Assign(det, 'archivoDetalle.dot');
+    Assign(newFile, 'archivoCompactado.dot');
 
+    eliminarPrendas(mae, det);
+    comprimirEnNuevoArchivo(mae, newFile);
 end.
