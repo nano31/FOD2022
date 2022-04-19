@@ -92,6 +92,7 @@ begin
 
         seek(mae, filepos(mae)-1);
         write(mae, rMae);
+        minimo(vDet,vReg,min);
     end;
     close(mae); {cierro el archivo maestro}
 
