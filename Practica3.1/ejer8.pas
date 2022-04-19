@@ -111,10 +111,15 @@ begin
         WriteLn('La distro buscada no se encutra en el archivo');
 end;
 
-
 {programa principal}
 var
-
+    fileMaster: maestro;
+    nombreDistribucion: cad;
 begin
+    generarArchivo(fileMaster);
+    altaDistribucion(fileMaster);
+    WriteLn('Ingrese el nombre de la distribucion que desea eliminar: ');
+    ReadLn(nombreDistribucion);
+    bajaDistribucion(fileMaster, nombreDistribucion);
 
 end.
