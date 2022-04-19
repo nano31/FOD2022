@@ -71,7 +71,7 @@ begin
     while (min.codLocalidad <> valorAlto) do begin
         aux.codLocalidad:= min.codLocalidad;
         aux.codCepa:= min.codCepa;
-        while ((aux.codLocalidad = min.codLocalidad)and(aux.codCepa = aux.codCepa)) do begin
+        while ((aux.codLocalidad = min.codLocalidad) and (aux.codCepa = aux.codCepa)) do begin
             aux.cantActivos := aux.cantActivos + min.cantActivos;
             aux.cantNuevos := aux.cantNuevos + min.cantNuevos;
             aux.cantRecuperados := aux.cantRecuperados + min.cantRecuperados;
