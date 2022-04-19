@@ -13,6 +13,7 @@
 
     maestro = file of rDistro;
 
+
 function existeDistribucion(nombreDistro: cad; var arch: maestro): boolean; 
 //devuelve true o false dependiendo si la distro 
 //buscada existe o no
@@ -25,9 +26,35 @@ begin
 
     while (not EOF(arch) and not encontre) do begin
         leer(arch, distro);
-        if (distro.nombre = nombreDistro) then
+        if ((distro.cantDesarrolladores > 0)and (distro.nombre = nombreDistro)) then
             encontre:= true;
     end;
+    existeDistribucion:= encontre;
+end;
+
+
+procedure leerDistro(var distro: rDistro);
+begin
+    WriteLn('Cant Desrrolladores: '); ReadLn(distro.cantDesarrolladores);
+    if (distro.cantDesarrolladores <> 0) then begin
+        WriteLn('Nombre: '); ReadLn(distro.nombre);
+        WriteLn('Anio Lanzamiento: '); ReadLn(distro.anioLanzamiento);
+        WriteLn('Nro Version de Kernel: '); ReadLn(distro.nroVersionKernel);
+        WriteLn('Descripcion: '); ReadLn(distro.descripcion);
+    end;
+end;
+
+procedure generarArchivo(var mae: maestro);
+var
+    distro: rDistro;
+begin
+    Rewrite(mae);
+    leerDistro(distro);
+    while (not existeDistribucion(distro.nombre) and distro.cantDesarrolladores <> 0) do begin
+        Write(mae, distro);
+        leerDistro(distro);
+    end;
+    Close(mae);
 end;
 
 procedure altaDistribucion(var mae: maestro);
@@ -50,7 +77,9 @@ begin
             write(arch,cabecera);
         end
         else
-            WriteLn('No hay espacio dentro del archivo');
+            WriteLn('No hay espacio, se agrega al final del archivo');
+            Seek(arch, FileSize(arch));
+            write(arch, nuevaDistro);
     end
     else
         WriteLn('La distribucion ingresada ya existe en el archivo');
@@ -61,15 +90,31 @@ procedure bajaDistribucion(var mae: maestro; nombreDistro: cad);
 //elimina logicamente una distro
 //pra la baja utilizo el campo cantidad de desarrolladores
 var
-
+    encontre: boolean;
 begin
-
+    Reset(mae);
+    read(mae, cabecera);
+    read(mae, distro);
+    if (existeDistribucion(nombreDistro)) then begin
+        while(not EOF(mae) and (distro.nombre <> nombreDistro)) do begin
+            read(mae, distro);
+        end;
+        if (distro.nombre = nombreDistro) then begin
+            distro.cantDesarrolladores:= distro.cantDesarrolladores*-1;
+            seek(mae, FilePos(arch)-1);
+            write(mae,cabecera);
+            seek(mae, 0);
+            write(mae, distro);
+        end;
+    end
+    else
+        WriteLn('La distro buscada no se encutra en el archivo');
 end;
 
 
- {programa principal}
- var
+{programa principal}
+var
 
- begin
+begin
 
- end.
+end.
