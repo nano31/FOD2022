@@ -33,11 +33,11 @@ begin
         dato.nomProvincia:= valorFinal;
 end;
 
-procedure buscarMinimo();
+procedure buscarMinimo(var det1, det2: detalle; var min: minimo);
 var
 
 begin
-
+    
 end;
 
 procedure actualizarMaestro();
