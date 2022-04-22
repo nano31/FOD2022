@@ -106,7 +106,6 @@ begin
         if (not EOF(mae)) then begin
             read(mae, regMae);
         end;
-        leer();
     end;
     close(mae);
     for i:= 1 to df do begin

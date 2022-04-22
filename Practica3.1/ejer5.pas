@@ -98,7 +98,7 @@ begin
         cabecera.codigo := (arch, FilePos(arch)*-1);
         write(arch, aux);
         aux.codigo := cabecera.codigo;
-        seer(arch,0);
+        Seek(arch,0);
         write(arch, aux);
     end;
     close(arch);
