@@ -1,0 +1,29 @@
+function buscar(NRR, clave, NRR_encontrado, pos_encontrada)
+begin
+    if (nodo = null) then
+        buscar := false {clave no encontrada}
+    else
+        posicionarYLeerNodo(A, nodo, NRR);
+        if (claveEncontrada(A, nodo, clave, pos)) then
+            NRR_encontrado := NRR; {NRR actual)
+            pos_encontrada := pos; {posición dentro del array}
+            //buscar := true;
+        end
+        else
+            buscar(nodo.hijo[pos], clave, NRR_encontrado, pos_encontrada);
+    end;
+end;
+
+- En la 1er llamada, NRR contiene la pos de la raíz del árbol.
+
+a. posicionarYLeerNodo(A, nodo, NRR) --> 
+    nodo se pasa por referencia.
+    NRR se pasa por referencia.
+
+b. claveEncontrada(A, nodo, clave, pos) -->
+    pos se pasa por referencia.
+    nodo se puede pasar por valor porque no se modifica.
+    clave es el valor que se está buscando dentro del árbol.
+
+c. El error dentro del código, es que en ningúnn momento se está poniendo buscar = true, y esto es algo
+necesario, ya que el código da a entender que la función debe retornar un valor booleano.
