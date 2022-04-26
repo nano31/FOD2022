@@ -1,0 +1,24 @@
+program ejer1;
+const 
+    orden = 5;
+type
+    rAlumno = record
+        nombre_y_apellido: cad;
+        dni: integer;
+        legajo: integer;
+        anioIngreso: integer;
+    end;
+
+    nodo = record
+        cantClaves: integer;
+        claves: array [1..orden-1] of rAlumno; //almacena los datos del nodo
+        hijos: array [1..orden] of integer; //permite almacenar los hijos del nodo
+    end;
+
+1. Para organizar los elementos del árbol, se podrían elegir como claves el número de legajo
+y el dni del alumno, esto se debe a que ninguna de las dos claves se va a repetir, ya que tanto
+el lagajo como el dni son únicos e irrepetibles.
+También si no, podría seleccionarse el nombre y el apellido, ya que es más fácil buscar por nombre y apellido 
+que por dni o legajo.
+Eso si, el nombre y el apellido serían una clave secundaria, porque existe la posibilidad
+de que más de un alumno tenga el mismo nombre o el mismo apellido.
