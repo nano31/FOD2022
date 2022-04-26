@@ -1,0 +1,28 @@
+program ejer2;
+const 
+    orden = 5;
+type
+    rAlumno = record
+        nombre_y_apellido: cad;
+        dni: integer;
+        legajo: integer;
+        anioIngreso: integer;
+    end;
+
+    nodo = record
+        cantClaves: integer;
+        claves: array [1..orden-1] of rAlumno; //almacena los datos del nodo
+        hijos: array [1..orden] of integer; //permite almacenar los hijos del nodo
+    end;
+
+
+Los árboles B+ están construidos de tal forma que poseen dos punteros para el recorrido, uno que apunta a 
+la raíz es cual nos permite hacer la búsqueda y otro puntero que se encuentra apuntando
+al nodo inicial, el cual nos permite realizar un recorrido secuencial del árbol.
+
+a. Para acceder a la búsqueda por DNI, puedo hacerlo mediante el puntero que se encuentra aputando al
+nodo raíz o por el puntero que se encuentra apuntando al nodo inicial. Ya que el DNI es la clave
+primaria del árbol y todo el árbol va a estar ordenado por ese criterio.
+
+b. Para buscar a un alumno por su nombre y apellido, la búsqueda se debe iniciar desde el puntero que
+apunta al nodo inicial, ya que este permite recorrer el árbol B+ de forma secuencial.
